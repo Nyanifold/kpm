@@ -1,0 +1,11 @@
+name = "cpp-basics-kpm-demo"
+version = "1.0.0"
+description = "An introduction to C++ programming for beginners"
+authors = ["KPM Contributors <contrib@kpm.dev>"]
+license = "CC-BY-4.0"
+keywords = ["cpp", "c++", "programming", "beginner"]
+
+default_language = "en"
+supported_languages = ["en"]
+
+entry = "index.md"

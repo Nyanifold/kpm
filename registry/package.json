@@ -1,0 +1,16 @@
+{
+  "name": "kpm-registry",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/server.js",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "publish": "bun run scripts/publish.ts",
+    "publish-local": "bun run scripts/publish-local.ts"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

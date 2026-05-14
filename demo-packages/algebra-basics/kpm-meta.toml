@@ -1,0 +1,11 @@
+name = "algebra-basics-kpm-demo"
+version = "1.0.0"
+description = "Foundations of algebra: sets, functions, and linear equations"
+authors = ["KPM Contributors <contrib@kpm.dev>"]
+license = "CC-BY-4.0"
+keywords = ["algebra", "mathematics", "sets", "functions", "linear-equations"]
+
+default_language = "en"
+supported_languages = ["en"]
+
+entry = "index.md"

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tgz
+.tmp/
+
+CLAUDE.md
+
+.claude
+
+.wrangler
+
+reports/
+docs/
+
+git-backup/

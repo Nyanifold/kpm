@@ -1,0 +1,14 @@
+# Registry URLs to search when installing packages (tried in order).
+# Falls back to the KPM_REGISTRY environment variable if not set.
+registries = ["https://kpm-registry.nyanifold.workers.dev"]
+
+[dependencies]
+# "package-name" = "^1.0.0"
+cpp-basics-kpm-demo = "file:../demo-packages/cpp-basics-kpm-demo@1.0.0.tar.gz"
+algebra-basics-kpm-demo = "http://kpm-registry.nyanifold.workers.dev/files/algebra-basics-kpm-demo@1.0.0.tar.gz"
+python-basics-kpm-demo = "registry+https://kpm-registry.nyanifold.workers.dev/python-basics-kpm-demo@^1.3.0"
+logic-basics-kpm-demo = "^1.0.0"
+
+[paths]
+# Additional directories to search with `kpm paths`.
+extra = []

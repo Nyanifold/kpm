@@ -1,0 +1,31 @@
+{
+  "name": "@nyanifold/kpm",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "kpm": "./dist/index.js" },
+  "files": ["dist"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "pnpm build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^5.0.0",
+    "@iarna/toml": "^3.0.0",
+    "adm-zip": "^0.5.16",
+    "commander": "^12.0.0",
+    "js-yaml": "^4.1.0",
+    "semver": "^7.6.0",
+    "tar": "^7.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@nyanifold/kpm-core": "workspace:*",
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

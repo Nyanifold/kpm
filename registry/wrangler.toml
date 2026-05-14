@@ -1,0 +1,15 @@
+name = "kpm-registry"
+main = "src/worker.js"
+compatibility_date = "2025-05-10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kpm-registry"
+database_id = ""
+
+[[r2_buckets]]
+binding = "ARCHIVES"
+bucket_name = "kpm-archives"
+
+[observability]
+enabled = true

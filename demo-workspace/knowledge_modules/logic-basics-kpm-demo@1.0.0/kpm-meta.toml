@@ -1,0 +1,11 @@
+name = "logic-basics-kpm-demo"
+version = "1.0.0"
+description = "Foundations of mathematical logic: propositions, equivalences, quantifiers, and proof techniques"
+authors = ["KPM Contributors <contrib@kpm.dev>"]
+license = "CC-BY-4.0"
+keywords = ["logic", "mathematics", "propositional-logic", "quantifiers", "proof"]
+
+default_language = "en"
+supported_languages = ["en"]
+
+entry = "index.md"
