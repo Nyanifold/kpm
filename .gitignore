@@ -10,6 +10,7 @@ CLAUDE.md
 .wrangler
 
 reports/
-docs/
 
 git-backup/
+
+dev_docs/

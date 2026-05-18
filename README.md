@@ -27,12 +27,74 @@ A temporary demo registry is available at `https://kpm-registry.nyanifold.worker
 | `cpp-basics-kpm-demo` | 1.0.0 | An introduction to C++ programming for beginners |
 | `logic-basics-kpm-demo` | 1.0.0 | Foundations of mathematical logic: propositions, equivalences, quantifiers, and proof techniques |
 
+> **About registries:** KPM currently has no centralized official registry. Organizations interested in hosting one for the community are welcome to do so. If you are an individual who wants to share knowledge, you can host your `.tar.gz` archive at any publicly accessible URL (e.g. GitHub) and reference it directly with `kpm add`:
+> ```
+> kpm add https://github.com/Nyanifold/kpm/raw/refs/heads/main/demo-packages/algebra-basics-kpm-demo@1.0.0.tar.gz
+> ```
+
 ## Install
 
 ```bash
 npm install -g @nyanifold/kpm        # npm
 bun install -g @nyanifold/kpm        # bun
 ```
+
+---
+
+## Using Packages (Workspace)
+
+A workspace is any directory with `kpm-dependencies.toml`:
+
+```bash
+mkdir my-project && cd my-project
+kpm init                   # creates kpm-dependencies.toml + knowledge_modules/
+```
+
+### Adding dependencies
+
+```bash
+kpm add file:../my-algebra.tar.gz          # local archive
+kpm add https://example.com/pkg.tar.gz     # direct URL
+kpm add my-package                         # bare name — see note below
+```
+
+### Syncing
+
+```bash
+kpm sync
+```
+
+After `kpm sync`, installed content lives under `knowledge_modules/`:
+
+```
+my-project/
+├── kpm-dependencies.toml        # you edit this
+└── knowledge_modules/           # kpm manages this
+    └── my-algebra@1.0.0/
+```
+
+> **Important:** There is no default registry. When using bare package names (like `kpm add my-package`), you must configure a registry. Either set the environment variable:
+> ```bash
+> export KPM_REGISTRY=https://your-registry.example.com
+> ```
+> or configure it in `kpm-dependencies.toml`:
+> ```toml
+> registries = ["https://your-registry.example.com"]
+> ```
+> Without this, bare names have nowhere to resolve and will error. `file:` and `https://` specifiers work without any registry configuration.
+
+### What to version-control
+
+`knowledge_modules/` is a generated directory — like `node_modules` or `.venv` — and should not be committed. Only `kpm-dependencies.toml` needs to be tracked:
+
+```
+.gitignore:
+knowledge_modules/
+```
+
+Anyone can reproduce the environment with `kpm sync`.
+
+> **Exception: `file:` dependencies.** If your manifest references a local path (e.g. `file:../my-pkg.tar.gz`), that file must also be available to others. Either publish the referenced archive alongside the workspace, or replace `file:` with a registry or URL specifier before sharing.
 
 ---
 
@@ -129,63 +191,6 @@ Cross-directory references (e.g. `chapter1/intro.md` referencing `![fig](../chap
 
 ---
 
-## Using Packages (Workspace)
-
-A workspace is any directory with `kpm-dependencies.toml`:
-
-```bash
-mkdir my-project && cd my-project
-kpm init                   # creates kpm-dependencies.toml + knowledge_modules/
-```
-
-### Adding dependencies
-
-```bash
-kpm add file:../my-algebra.tar.gz          # local archive
-kpm add https://example.com/pkg.tar.gz     # direct URL
-kpm add my-package                         # bare name — see note below
-```
-
-### Syncing
-
-```bash
-kpm sync
-```
-
-After `kpm sync`, installed content lives under `knowledge_modules/`:
-
-```
-my-project/
-├── kpm-dependencies.toml        # you edit this
-└── knowledge_modules/           # kpm manages this
-    └── my-algebra@1.0.0/
-```
-
-> **Important:** There is no default registry. When using bare package names (like `kpm add my-package`), you must configure a registry. Either set the environment variable:
-> ```bash
-> export KPM_REGISTRY=https://your-registry.example.com
-> ```
-> or configure it in `kpm-dependencies.toml`:
-> ```toml
-> registries = ["https://your-registry.example.com"]
-> ```
-> Without this, bare names have nowhere to resolve and will error. `file:` and `https://` specifiers work without any registry configuration.
-
-### What to version-control
-
-`knowledge_modules/` is a generated directory — like `node_modules` or `.venv` — and should not be committed. Only `kpm-dependencies.toml` needs to be tracked:
-
-```
-.gitignore:
-knowledge_modules/
-```
-
-Anyone can reproduce the environment with `kpm sync`.
-
-> **Exception: `file:` dependencies.** If your manifest references a local path (e.g. `file:../my-pkg.tar.gz`), that file must also be available to others. Either publish the referenced archive alongside the workspace, or replace `file:` with a registry or URL specifier before sharing.
-
----
-
 ## kpm-meta.toml Reference
 
 Placed at the root of a knowledge package.
@@ -234,7 +239,7 @@ Placed at the root of a workspace.
 
 | Prefix | Example | Meaning |
 |---|---|---|
-| none (bare) | `"^1.0.0"` | Resolved against configured registries. Requires `registries` to be set. |
+| none (bare) | `"^1.0.0"` | Resolved against configured registries. Requires `registries` to be set or `KPM_REGISTRY` env var. |
 | `file:` | `"file:../pkg.tar.gz"` | Local path, relative to workspace root. |
 | `http://` / `https://` | `"https://example.com/pkg.tar.gz"` | Direct download from URL. |
 | `registry+` | `"registry+https://reg.example.com/pkg@^1.0.0"` | Pinned to a specific registry URL, independent of the workspace `registries` list. |
@@ -265,7 +270,13 @@ extra = []
 | `registry/` | Registry server — Cloudflare Worker + standalone Bun server |
 | `demo-packages/` | Example knowledge packages (algebra, C++, Python, logic) |
 | `demo-workspace/` | Example workspace showing all dependency source types |
-| `docs/` | Getting-started guide and design notes |
+| `docs/` | Guides for building and sharing knowledge packages |
+
+### Docs
+
+| File | Description |
+|---|---|
+| `docs/sphinx-to-markdown.md` | How to convert Python package documentation (Sphinx) to Markdown and package it as a KPM knowledge package |
 
 ## License
 
